@@ -1,0 +1,19 @@
+# Ambiente virtual
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django
+*.sqlite3
+media/
+
+# Configurações locais e segredos
+.env
+
+# Ferramentas e sistema operacional
+.vscode/
+.idea/
+.DS_Store
