@@ -7,7 +7,7 @@ Sistema interno de gestão para a ONG Guardiões da Causa Animal.
 - Python 3.10
 - Django 5.2 LTS
 - Django Templates
-- PostgreSQL — será configurado na próxima fase
+- PostgreSQL
 - HTMX — será adicionado nas fases de interface
 
 ## Configuração local
@@ -45,4 +45,23 @@ A aplicação estará disponível em `http://127.0.0.1:8000/`.
 
 ```bash
 python manage.py test
+```
+
+## PostgreSQL local
+
+1. Instale o PostgreSQL.
+
+2. Crie o usuário e o banco da aplicação:
+
+   ```bash
+   sudo -u postgres createuser --pwprompt ong_user
+   sudo -u postgres createdb --owner=ong_user --encoding=UTF8 ong_project
+   ``
+
+3. Crie um arquivo .env na raiz do projeto com base em .env.example e informe suas credenciais locais.
+
+4. Execute as migrações:
+
+```bash
+python manage.py migrate
 ```
