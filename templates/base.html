@@ -1,0 +1,61 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Guardiões da Causa Animal{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="{% url 'core:home' %}">
+          Guardiões Animal
+        </a>
+
+        <nav class="navigation" aria-label="Navegação principal">
+          <a
+            class="nav-item {% if request.resolver_match.view_name == 'core:home' %}active{% endif %}"
+            href="{% url 'core:home' %}"
+          >
+            Início
+          </a>
+          <span class="nav-item pending">Animais</span>
+          <span class="nav-item pending">Protetores</span>
+          <span class="nav-item pending">Adoções</span>
+          <span class="nav-item pending">Eventos</span>
+          <span class="nav-item pending">Doações</span>
+          <span class="nav-item pending">Parceiros</span>
+        </nav>
+      </aside>
+
+      <div class="page">
+        <header class="header">
+          <strong>Gestão da ONG</strong>
+
+          <div class="user-area">
+            <span>{{ request.user.username }}</span>
+
+            <form action="{% url 'accounts:logout' %}" method="post">
+              {% csrf_token %}
+              <button class="button secondary" type="submit">Sair</button>
+            </form>
+          </div>
+        </header>
+
+        <main class="content">
+          {% if messages %}
+            <div class="messages" aria-live="polite">
+              {% for message in messages %}
+                <div class="message">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% block content %}{% endblock %}
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
