@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar | Guardiões da Causa Animal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body class="login-page">
+    <div class="login-decoration login-decoration-top" aria-hidden="true"></div>
+    <div class="login-decoration login-decoration-bottom" aria-hidden="true"></div>
+
+    <main class="login-card">
+        <header class="login-brand">
+            <img src="{% static 'images/login-paw.svg' %}" width="40" height="40" alt="">
+            <div>
+                <p>Guardiões da</p>
+                <h1>Causa Animal</h1>
+            </div>
+        </header>
+
+        <section class="login-introduction" aria-labelledby="login-title">
+            <h2 id="login-title">Bem-vindo(a) novamente</h2>
+            <p>Acesse sua conta para continuar gerenciando as atividades da ONG.</p>
+        </section>
+
+        {% if form.non_field_errors %}
+            <div class="login-alert" role="alert">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="post" class="login-form">
+            {% csrf_token %}
+
+            <div class="login-field{% if form.username.errors %} has-error{% endif %}">
+                <label for="{{ form.username.id_for_label }}">Usuário</label>
+                {{ form.username }}
+                {% for error in form.username.errors %}
+                    <p class="field-error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="login-field{% if form.password.errors %} has-error{% endif %}">
+                <label for="{{ form.password.id_for_label }}">Senha</label>
+                <div class="password-input">
+                    {{ form.password }}
+                    <span class="password-visibility-icon" aria-hidden="true">
+                        <img src="{% static 'images/login-eye-pupil.svg' %}" width="18" height="14" alt="">
+                        <img class="password-visibility-pupil" src="{% static 'images/login-eye-slash.svg' %}" width="7" height="7" alt="">
+                        <img class="password-visibility-slash" src="{% static 'images/login-eye-outline.svg' %}" width="16" height="16" alt="">
+                    </span>
+                </div>
+                {% for error in form.password.errors %}
+                    <p class="field-error">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="login-options" aria-label="Opções de acesso">
+                <span class="remember-option" aria-disabled="true">
+                    <span class="checkbox-placeholder" aria-hidden="true"></span>
+                    Lembrar-me
+                </span>
+                <span class="forgot-password" aria-disabled="true">Esqueci minha senha</span>
+            </div>
+
+            <button class="login-button" type="submit">Entrar</button>
+        </form>
+    </main>
+</body>
+</html>

@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guardiões da Causa Animal</title>
-</head>
-<body>
-    <main>
-        <h1>Guardiões da Causa Animal</h1>
-        <span>Sistema interno de gestão da ONG</span>
-    </main>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Início | Guardiões da Causa Animal {% endblock %}
+
+{% block content %}
+  <section class="card">
+    <h1> Bem vindo, {{ request.user.username }}! </h1>
+    <p>
+        Use o menu lateral para acompanhar a gestão da ONG
+    </p>
+  </section>
+{% endblock %}

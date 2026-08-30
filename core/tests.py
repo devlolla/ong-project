@@ -1,12 +1,24 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
 
 class CoreViewsTests(TestCase):
 
-    def test_home_returns_success_and_uses_correct_template(self):
+    def test_home_redirects_anonymous_user_to_login(self):
         response = self.client.get(reverse("core:home"))
 
+        login_url = reverse("accounts:login")
+        home_url = reverse("core:home")
+        self.assertRedirects(response, f"{login_url}?next={home_url}")
+
+    def test_authenticated_user_can_access_home(self):
+        user = User.objects.create_user(
+            username="usuario_teste",
+            password="senha_teste"
+        )
+        self.client.force_login(user)
+        response = self.client.get(reverse("core:home"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "core/home.html")
 
