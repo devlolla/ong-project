@@ -56,7 +56,7 @@ python manage.py test
    ```bash
    sudo -u postgres createuser --pwprompt ong_user
    sudo -u postgres createdb --owner=ong_user --encoding=UTF8 ong_project
-   ``
+   ```
 
 3. Crie um arquivo .env na raiz do projeto com base em .env.example e informe suas credenciais locais.
 
@@ -65,3 +65,67 @@ python manage.py test
 ```bash
 python manage.py migrate
 ```
+
+## Ambiente Docker
+
+O projeto também pode ser executado com Docker Compose. Essa opção inicia o Django e o PostgreSQL em containers, sem depender da `.venv` ou do PostgreSQL instalados localmente.
+
+### 1. Crie o arquivo de variáveis Docker
+
+```bash
+cp .env.docker.example .env.docker
+```
+
+Edite `.env.docker` e informe uma chave secreta e uma senha de desenvolvimento.
+
+### 2. Inicie os containers
+
+Na primeira execução, ou após alterar `Dockerfile` ou `requirements.txt`:
+
+```bash
+docker compose up --build
+```
+
+Nas próximas execuções:
+
+```bash
+docker compose up
+```
+
+A aplicação estará disponível em `http://127.0.0.1:8000/`.
+
+### 3. Execute as migrations
+
+Em outro terminal:
+
+```bash
+docker compose exec web python manage.py migrate
+```
+
+### 4. Execute os testes
+
+```bash
+docker compose exec web python manage.py test
+```
+
+### Comandos úteis
+
+Verificar o estado dos containers:
+
+```bash
+docker compose ps
+```
+
+Acompanhar os logs do Django:
+
+```bash
+docker compose logs -f web
+```
+
+Parar os containers sem apagar os dados do banco:
+
+```bash
+docker compose down
+```
+
+> Atenção: `docker compose down -v` também remove o volume `postgres_data` e apaga todos os dados do PostgreSQL Docker.
