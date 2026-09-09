@@ -12,6 +12,7 @@ media/
 
 # Configurações locais e segredos
 .env
+.env.docker
 
 # Ferramentas e sistema operacional
 .vscode/

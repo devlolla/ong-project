@@ -1,0 +1,19 @@
+# Ambiente Python local
+.venv/
+__pycache__/
+*.py[cod]
+
+# Arquivos sensíveis ou específicos da máquina
+.env
+.env.docker
+db.sqlite3
+
+# Controle de versão e arquivos temporários
+.git/
+.gitignore
+*.log
+
+# Dados gerados em desenvolvimento
+media/
+staticfiles/
+.pytest_cache/
